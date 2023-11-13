@@ -22,11 +22,66 @@ const Calculator = () => {
     setCompleteOperation((prevOperation) => prevOperation + val);
   };
 
+  const handleOperation = (operation) => {
+    setCompleteOperation(currentValue + " " + operation);
+    setPendingOperation(operation);
+    setPendingValue(currentValue);
+    setCurrentValue("0");
+  };
+
   const handleClear = () => {
     setCurrentValue("0");
     setPendingOperation(null);
     setPendingValue(null);
     setCompleteOperation("");
+  };
+
+  const handleCalculate = () => {
+    if (!pendingOperation || !pendingOperation) {
+      return;
+    }
+
+    const num1 = parseFloat(pendingValue);
+    const num2 = parseFloat(currentValue);
+
+    let result;
+
+    switch (pendingOperation) {
+      case "+":
+        result = num1 + num2;
+        break;
+      case "-":
+        result = num1 - num2;
+        break;
+      case "/":
+        if (num2 !== 0) {
+          result = num1 / num2;
+        } else {
+          setCurrentValue("Error");
+          setCompleteOperation("Error");
+          setPendingOperation(null);
+          setPendingValue(null);
+          return;
+        }
+        break;
+      case "*":
+        result = num1 * num2;
+        break;
+    }
+
+    setCompleteOperation(
+      pendingValue +
+        " " +
+        pendingOperation +
+        " " +
+        currentValue +
+        " = " +
+        result
+    );
+
+    setCurrentValue(result.toString());
+    setPendingOperation(null);
+    setPendingValue(null);
   };
 
   return (
@@ -41,9 +96,11 @@ const Calculator = () => {
           </button>
         ))}
         {operations.map((operation) => (
-          <button key={operation}>{operation}</button>
+          <button key={operation} onClick={() => handleOperation(operation)}>
+            {operation}
+          </button>
         ))}
-        <button> =</button>
+        <button onClick={handleCalculate}> =</button>
       </div>
     </div>
   );
