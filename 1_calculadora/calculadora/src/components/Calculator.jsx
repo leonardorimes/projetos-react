@@ -4,9 +4,9 @@ import "./Calculator.css";
 
 const Calculator = () => {
   const [currentValue, setCurrentValue] = useState("0");
-  const [pendingOperation, setPendingOperation] = useState(null);
-  const [pendingValue, setPendingValue] = useState(null);
-  const [completeOperation, setCompleteOperation] = useState("");
+  const [pendingOperation, setPendingOperation] = useState(null); // operacao atual
+  const [pendingValue, setPendingValue] = useState(null); // operacao pendente
+  const [completeOperation, setCompleteOperation] = useState(""); // operacao completa
 
   const keypadNumbers = ["1", "2", "3", "4", "5", "6", "7", "8", "9"];
   const operations = ["+", "-", "*", "/"];
