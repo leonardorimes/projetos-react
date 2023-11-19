@@ -4,6 +4,7 @@ import TimerControls from "./TimerControls";
 import LapList from "./LapList";
 
 import "./Timer.css";
+import LapsHistory from "./LapsHistory";
 
 const Timer = () => {
   const [milliseconds, setMilliseconds] = useState(0);
@@ -34,11 +35,40 @@ const Timer = () => {
   const resetTimer = () => {
     setMilliseconds(0);
     setTimerOn(false);
+    saveLapsLocalStorage(laps);
     setLaps([]);
   };
 
   const addLap = () => {
     setLaps([...laps, formatTime()]);
+  };
+
+  const getDate = () => {
+    const dataAtual = new Date();
+    const dataFormatada = dataAtual.toLocaleDateString();
+    return dataFormatada;
+  };
+
+  const changePosition = (arr, from, to) => {
+    return arr.splice(to, 0, arr.splice(from, 1)[0]);
+  };
+
+  const saveLapsLocalStorage = (laps) => {
+    const findDate = (element) => element == getDate();
+
+    let completeList = laps.concat(getLapsLocalStorage());
+    if (!completeList.includes(getDate())) {
+      completeList.unshift(getDate());
+    } else {
+      changePosition(completeList, completeList.findIndex(findDate), 0);
+    }
+
+    localStorage.setItem("laps", JSON.stringify(completeList));
+  };
+
+  const getLapsLocalStorage = () => {
+    const laps = JSON.parse(localStorage.getItem("laps"));
+    return laps;
   };
 
   useEffect(() => {
@@ -62,6 +92,7 @@ const Timer = () => {
         onLap={addLap}
       />
       <LapList laps={laps} />
+      <LapsHistory date={getDate} storageList={getLapsLocalStorage} />
     </div>
   );
 };
