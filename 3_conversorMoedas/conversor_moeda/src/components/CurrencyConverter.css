@@ -47,3 +47,33 @@
   display: flex;
   gap: 10px;
 }
+
+
+h4 {
+  color: black;
+}
+.historic {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+  align-items: center;
+}
+
+.historic:nth-child(odd){
+  background-color: #343a40;
+  
+}
+
+.historic:nth-child(odd) p{
+  color: white;
+  
+}
+
+.historic button{
+  background-color: red;
+  width: 2rem;
+  height: 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  
+}

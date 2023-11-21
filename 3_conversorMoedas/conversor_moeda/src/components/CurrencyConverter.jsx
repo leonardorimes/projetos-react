@@ -9,6 +9,37 @@ const CurrencyConverter = () => {
   const [toCurrency, setToCurrency] = useState("EUR");
   const [amount, setAmount] = useState(1);
   const [convertedAmount, setConvertedAmount] = useState(null);
+  const [conversions, setConversions] = useState([])
+
+
+  const calculate = (rateFrom, rateTo, amount) => {
+    return ((amount / rateFrom) * rateTo).toFixed(2);
+  };
+
+  const deleteFromLocalStorage = (index) => {
+    
+    let newConversions = conversions.filter((idx)=> {
+        return idx !== index
+    })
+
+
+
+    console.log("esse é o new" + newConversions[2].fromCurrency)
+
+
+    JSON.stringify("conversions", newConversions)
+
+
+  }
+
+
+useEffect(() => {
+     const conversions = JSON.parse(localStorage.getItem("conversions"));
+     setConversions(conversions)
+     console.log(conversions)
+}, [convertedAmount])
+
+
 
   useEffect(() => {
     axios
@@ -35,25 +66,27 @@ const CurrencyConverter = () => {
     () => {
       localStorage.setItem(
         "conversions",
-        JSON.stringify({
+        JSON.stringify([...conversions, {
+          id: Math.floor(Math.random() * 100000),
+          data: new Date().toLocaleDateString(),
           fromCurrency,
           toCurrency,
           amount,
-        })
+          convertedAmount
+        }])
       );
     },
     [amount],
     [fromCurrency],
+    [toCurrency]
     [convertedAmount]
   );
-
-  const calculate = (rateFrom, rateTo, amount) => {
-    return ((amount / rateFrom) * rateTo).toFixed(2);
-  };
 
   if (!rates) {
     return <h1> Carregando ...</h1>;
   }
+
+
 
   return (
     <div className="converter">
@@ -111,6 +144,28 @@ const CurrencyConverter = () => {
           convertedAmount={calculate(rates["BRL"], rates["MXN"], 1)}
         />
       </div>
+ 
+       
+      <h4> Histórico de conversões</h4>
+  
+      {conversions && conversions.map((conversion, index) => (
+        <>
+        <div key={conversion.id} className="historic">
+
+            <p>{conversion.data}</p>
+            <p>{conversion.fromCurrency}</p>
+            <p>{conversion.amount} </p>
+            <p>{conversion.toCurrency}  </p>
+            <p>{conversion.convertedAmount} </p>
+            <button onClick={() => deleteFromLocalStorage(index)}> x </button>
+              
+         </div>
+         
+          
+        
+        
+        </>
+      ))}
     </div>
   );
 };
