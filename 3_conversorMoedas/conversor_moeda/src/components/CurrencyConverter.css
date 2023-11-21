@@ -42,3 +42,8 @@
 .converter p {
   font-size: 1.2rem;
 }
+
+.resumeReal {
+  display: flex;
+  gap: 10px;
+}
