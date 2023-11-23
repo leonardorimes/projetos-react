@@ -5,7 +5,7 @@ import Busca from "./components/Busca";
 import ClimaAtual from "./components/ClimaAtual";
 import Previsao from "./components/Previsao";
 
-import { Titulo } from "./AppStyles";
+import { ClimaContainer, Titulo } from "./AppStyles";
 
 function App() {
   const [cidade, setCidade] = useState();
@@ -51,12 +51,12 @@ function App() {
   console.log(previsao);
 
   return (
-    <div>
+    <ClimaContainer>
       <Titulo>Condições Climáticas</Titulo>
       <Busca cidade={cidade} setCidade={setCidade} buscarClima={buscarClima} />
       {clima && <ClimaAtual clima={clima} />}
       {previsao.length > 0 && <Previsao previsoes={previsao} />}
-    </div>
+    </ClimaContainer>
   );
 }
 
