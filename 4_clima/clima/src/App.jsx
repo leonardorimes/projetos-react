@@ -5,7 +5,8 @@ import Busca from "./components/Busca";
 import ClimaAtual from "./components/ClimaAtual";
 import Previsao from "./components/Previsao";
 
-import { ClimaContainer, Titulo } from "./AppStyles";
+import { ClimaContainer, PrincipaisCidades, Titulo } from "./AppStyles";
+import Button from "./components/Button";
 
 function App() {
   const [cidade, setCidade] = useState();
@@ -46,16 +47,34 @@ function App() {
     } catch (error) {
       console.log("Erro ao buscar clima", error);
     }
+
+    console.log(cidade);
   };
 
-  console.log(previsao);
+  const handlePrincipalCidade = (e) => {};
 
   return (
     <ClimaContainer>
-      <Titulo>Condições Climáticas</Titulo>
-      <Busca cidade={cidade} setCidade={setCidade} buscarClima={buscarClima} />
-      {clima && <ClimaAtual clima={clima} />}
-      {previsao.length > 0 && <Previsao previsoes={previsao} />}
+      <div>
+        <Titulo>Condições Climáticas</Titulo>
+        <Busca
+          cidade={cidade}
+          setCidade={setCidade}
+          buscarClima={buscarClima}
+        />
+        {clima && <ClimaAtual clima={clima} />}
+        {previsao.length > 0 && <Previsao previsoes={previsao} />}
+      </div>
+
+      <PrincipaisCidades>
+        <Button
+          title="Rio de Janeiro"
+          onClick={() => setCidade("Rio de Janeiro")}
+        ></Button>
+        <Button title="Paris" onClick={() => setCidade("Paris")}></Button>
+        <Button title="New York" onClick={() => setCidade("New York")}></Button>
+        <Button title="Tokio" onClick={() => setCidade("Tokio")}></Button>
+      </PrincipaisCidades>
     </ClimaContainer>
   );
 }

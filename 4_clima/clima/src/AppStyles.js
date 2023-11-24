@@ -8,8 +8,14 @@ export const Titulo = styled.h2`
 export const ClimaContainer = styled.div`
   background: linear-gradient(to bottom, #89cff0, #005c99);
   display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
   height: 100vh;
-`
+  gap: 80px;
+`;
+
+export const PrincipaisCidades = styled.div`
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+`;
