@@ -51,8 +51,6 @@ function App() {
     console.log(cidade);
   };
 
-  const handlePrincipalCidade = (e) => {};
-
   return (
     <ClimaContainer>
       <div>
