@@ -34,7 +34,6 @@ export const todoSlice = createSlice({
     },
     editTodo: (state, action) => {
       state.list = state.list.filter((todo) => todo.id !== action.payload.id);
-
       state.list.push({
         id: action.payload.id,
         text: action.payload.input,

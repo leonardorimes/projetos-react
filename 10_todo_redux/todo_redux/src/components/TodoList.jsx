@@ -6,7 +6,7 @@ import {
   filterTodos,
   editTodo,
 } from "../slices/todoSlice";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 const TodoList = () => {
   const { list, filter } = useSelector((state) => state.todos);
