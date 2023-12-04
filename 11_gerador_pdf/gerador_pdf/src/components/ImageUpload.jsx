@@ -1,4 +1,8 @@
-const ImageUpload = () => {
+const ImageUpload = ({ setImage }) => {
+
+    const handl
+
+
   return (
     <div className="imageUpload">
       <label className="configLabel">
