@@ -1,6 +1,6 @@
 import { useDispatch } from "react-redux";
 import { addTodo } from "../slices/todoSlice";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 const AddTodo = () => {
   const [input, setInput] = useState("");
@@ -10,8 +10,12 @@ const AddTodo = () => {
     e.preventDefault();
     if (input.trim() === "") return;
     dispatch(addTodo(input));
+
     setInput("");
   };
+
+  useEffect(() => {}, []);
+
   return (
     <form onSubmit={handleSubmit}>
       <input
