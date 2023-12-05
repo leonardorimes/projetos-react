@@ -9,7 +9,24 @@ function App() {
   const [taxData, setTaxData] = useState(null);
 
   const calculateTax = (values) => {
-    console.log(values);
+    let tax = 0;
+
+    const income = parseFloat(values.income);
+
+    if (income <= 10000) {
+      tax = income * 0.05;
+    } else if (income <= 20000) {
+      tax = income * 0.1;
+    } else {
+      tax = income * 0.15;
+    }
+
+    const taxData = {
+      ...values,
+      tax,
+    };
+
+    setTaxData(taxData);
   };
 
   return (
@@ -18,7 +35,7 @@ function App() {
         Calculadora de Impostos
       </Typography>
       <TaxForm onSubmit={calculateTax} />
-      {taxData && <TaxReport />}
+      {taxData && <TaxReport taxData={taxData} />}
     </Container>
   );
 }

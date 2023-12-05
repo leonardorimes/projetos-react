@@ -2,7 +2,7 @@ import { TextField, Button, Container } from "@mui/material";
 
 import { useFormik } from "formik";
 
-const TaxForm = ({ onsubmit }) => {
+const TaxForm = ({ onSubmit }) => {
   const formik = useFormik({
     initialValues: {
       name: "",
@@ -29,7 +29,7 @@ const TaxForm = ({ onsubmit }) => {
     },
 
     onSubmit: (values) => {
-      onsubmit(values);
+      onSubmit(values);
     },
   });
 
