@@ -1,9 +1,9 @@
 import React from "react";
 
-const Slide = () => {
+const Slide = ({ url, isActive }) => {
   return (
-    <div>
-      <h1> Slide</h1>
+    <div className={isActive ? "slide active" : "slide"}>
+      <img src={url} alt="" />
     </div>
   );
 };
