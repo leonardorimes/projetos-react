@@ -47,3 +47,23 @@ h1 {
   margin: 0 5px;
   transition: background 0.3s;
 }
+
+.carousel-button {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: rgba(0, 0, 0, 0.5);
+  color: #fff;
+  padding: 10px;
+  cursor: pointer;
+  z-index: 10;
+  border: none;
+}
+
+.prev {
+  left: 0;
+}
+
+.next {
+  right: 0;
+}
