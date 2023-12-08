@@ -12,8 +12,8 @@ function App() {
     { nome: "Sofia", idade: 28, cargo: "Analista" },
   ]);
 
-  const [searchTerm, setSearchTerm] = useState(null);
-  const [sortConfig, setSortConfig] = useState("");
+  const [searchTerm, setSearchTerm] = useState("");
+  const [sortConfig, setSortConfig] = useState(null);
 
   const sortedData = [...data].sort((a, b) => {
     if (sortConfig !== null) {
@@ -28,6 +28,12 @@ function App() {
 
     return 0;
   });
+
+  const filteredData = sortedData.filter(
+    (row) =>
+      row.nome.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      row.cargo.toLowerCase().includes(searchTerm.toLowerCase())
+  );
 
   const onColumnClick = (key) => {
     let direction = "ascending";
@@ -50,7 +56,7 @@ function App() {
       <table>
         <TableHeader onColumnClick={onColumnClick} />
         <tbody>
-          {sortedData.map((row, index) => (
+          {filteredData.map((row, index) => (
             <TableRow key={index} row={row} />
           ))}
         </tbody>
