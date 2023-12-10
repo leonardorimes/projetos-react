@@ -19,6 +19,23 @@ function App() {
     const imcResult = (weightFloat / (heightFloat * heightFloat)).toFixed(1);
 
     setImc(imcResult);
+
+    data.forEach((item) => {
+      if (imcResult >= item.min && imcResult <= item.max) {
+        setinfo(item.info);
+        setInfoClass(item.infoClass);
+      }
+    });
+
+    if (!info) return;
+  };
+
+  const resetCalc = (e) => {
+    e.preventDefault();
+
+    setImc("");
+    setinfo("");
+    setInfoClass("");
   };
 
   const [imc, setImc] = useState("");
@@ -30,7 +47,13 @@ function App() {
       {!imc ? (
         <ImcCalc calcImc={calcImc} />
       ) : (
-        <ImcTable data={data} imc={imc} info={info} infoClass={infoClass} />
+        <ImcTable
+          data={data}
+          imc={imc}
+          info={info}
+          infoClass={infoClass}
+          resetCalc={resetCalc}
+        />
       )}
     </div>
   );
