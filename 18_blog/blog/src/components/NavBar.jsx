@@ -1,5 +1,7 @@
 import { Link } from "react-router-dom";
 
+import "./Navbar.css";
+
 const NavBar = () => {
   return (
     <nav className="navbar">
