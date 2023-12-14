@@ -13,6 +13,7 @@ const EditPost = () => {
   const [body, setBody] = useState();
 
   const { id } = useParams();
+  console.log(id);
 
   const getPost = async () => {
     try {
@@ -25,6 +26,16 @@ const EditPost = () => {
     } catch (error) {
       console.log(error);
     }
+  };
+
+  const editPost = async (e) => {
+    e.preventDefault();
+
+    const post = { title, body, userId: 1 };
+
+    await blogFetch.put(`/posts/${id}`, {
+      body: post,
+    });
   };
 
   useEffect(() => {
