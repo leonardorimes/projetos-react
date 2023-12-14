@@ -8,6 +8,7 @@ import { createBrowserRouter, RouterProvider, Route } from "react-router-dom";
 import Home from "./routes/Home";
 import NewPost from "./routes/NewPost";
 import Post from "./routes/Post.jsx";
+import Admin from "./routes/Admin.jsx";
 
 import "./index.css";
 
@@ -26,6 +27,11 @@ const router = createBrowserRouter([
       {
         path: "/posts/:id",
         element: <Post />,
+      },
+      ,
+      {
+        path: "/admin",
+        element: <Admin />,
       },
     ],
   },
