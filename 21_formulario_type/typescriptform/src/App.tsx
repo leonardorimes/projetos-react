@@ -2,16 +2,21 @@
 import UserForm from "./components/UserForm";
 import ReviewForm from "./components/ReviewForm";
 import Thanks from "./components/Thanks";
+import Steps from "./components/Steps";
 
 import { GrFormNext, GrFormPrevious } from "react-icons/gr";
 
 // Hooks
-
+import { UseForm, useForm } from "./hooks/UseForm";
 // CSS
 
 import "./App.css";
 
 function App() {
+  const formComponents = [<UserForm />, <ReviewForm />, <Thanks />];
+
+  const { currentStep, currentComponent, changeStep } = useForm(formComponents);
+
   return (
     <div className="app">
       <div className="header">
@@ -22,17 +27,16 @@ function App() {
         </p>
       </div>
       <div className="form-container">
+        <Steps currentStep={currentStep} />
         <p>passos</p>
-        <form action="">
-          <div className="inputs-container">
-            <UserForm />
-          </div>
+        <form onSubmit={(e) => changeStep(currentStep + 1, e)}>
+          <div className="inputs-container">{currentComponent}</div>
           <div className="actions">
-            <button>
+            <button type="button" onClick={() => changeStep(currentStep - 1)}>
               <GrFormPrevious />
               <span>Voltar</span>
             </button>
-            <button>
+            <button type="submit">
               <span>Avançar</span>
               <GrFormNext />
             </button>
