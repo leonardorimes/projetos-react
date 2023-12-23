@@ -3,11 +3,13 @@ import { useForm } from "react-hook-form";
 import { FormSchema, formSchema } from "../schemas/FormSchema";
 
 export const useForms = () => {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<FormSchema>({
+    resolver: zodResolver(formSchema),
+  });
 
-    const [register, handleSubmit, formState: {errors}] = useForm<FormSchema>({
-        resolver: zodResolver(formSchema)
-    })
-
-    return {register, handleSubmit, errors}
-
+  return { register, handleSubmit, errors };
 };
