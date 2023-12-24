@@ -21,7 +21,7 @@ const generateCards = () => {
 
   const duplicateCards = cards
     .concat([...cards])
-    .map((card, index) => ({ ...card, index }));
+    .map((card, index) => ({ ...card, id: index }));
 
   return shuffleArray(duplicateCards);
 };
@@ -29,13 +29,52 @@ const generateCards = () => {
 const Game = () => {
   const [cards, setCards] = useState(generateCards());
   const [flippedCards, setFlippedCards] = useState([]);
-  const [chances, setChances] = useState(6);
+  const [chances, setChances] = useState(100);
 
   const result = cards.filter((card) => card.isFlipped).length;
 
+  const handleCardClick = (clickedCard) => {
+    if (chances === 0) return;
+
+    if (flippedCards.length === 2) return;
+
+    const newCards = cards.map((card) => {
+      return card.id === clickedCard.id ? { ...card, isFlipped: true } : card;
+    });
+
+    setCards(newCards);
+
+    setFlippedCards([...flippedCards, clickedCard]);
+
+    if (flippedCards.length === 1) {
+      setTimeout(() => {
+        const [firstCard] = flippedCards;
+
+        if (firstCard.value !== clickedCard.value) {
+          const resetCards = cards.map((card) => {
+            return card.id === firstCard.id || card.id === clickedCard.id
+              ? { ...card, isFlipped: false }
+              : card;
+          });
+
+          setCards(resetCards);
+          setChances((prev) => prev - 1);
+        }
+
+        setFlippedCards([]);
+      }, 600);
+    }
+  };
+
+  const resetGame = () => {
+    setChances(100);
+    setFlippedCards([]);
+    setCards(generateCards());
+  };
+
   return (
     <div className="game">
-      <Board cards={cards} />
+      <Board cards={cards} onCardClick={handleCardClick} />
       {chances === 0 ? (
         <p>Suas tentativas acabaram</p>
       ) : result === cards.length ? (
@@ -43,7 +82,9 @@ const Game = () => {
       ) : (
         <p>Você possui {chances} tentativa(s)</p>
       )}
-      <button className="btn">Reiniciar</button>
+      <button className="btn" onClick={resetGame}>
+        Reiniciar
+      </button>
     </div>
   );
 };
