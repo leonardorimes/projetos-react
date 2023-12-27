@@ -7,10 +7,12 @@ const Form = () => {
   const [email, setEmail] = useState("");
   const [agree, setAgree] = useState(false);
 
-  const [errors, setErros] = useState<User | null>(null);
+  const [errors, setErrors] = useState<User | null>(null);
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
+
+    setErrors(null);
 
     const data: User = {
       name,
@@ -21,9 +23,13 @@ const Form = () => {
     const validateErrors = validate(data);
 
     if (Object.keys(validateErrors).length > 0) {
-      alert("Tem erros");
+      setErrors(validateErrors);
       return;
     }
+
+    setName("");
+    setEmail("");
+    setAgree(false);
 
     alert("Obrigado por ser inscrever!");
   };
@@ -41,6 +47,9 @@ const Form = () => {
           value={name}
           onChange={(e) => setName(e.target.value)}
         />
+        {errors?.name && (
+          <small className="text-xs text-red-500 mt-1">{errors?.name}</small>
+        )}
       </div>
       <div className="flex flex-col">
         <label className="text-sm" htmlFor="email">
@@ -54,6 +63,9 @@ const Form = () => {
           onChange={(e) => setEmail(e.target.value)}
         />
       </div>
+      {errors?.email && (
+        <small className="text-xs text-red-500 mt-1">{errors?.email}</small>
+      )}
       <div className="flex flex-col">
         <a href="#" className="text-xs underline mb-2">
           Leia os termos
@@ -68,6 +80,9 @@ const Form = () => {
             Concordo com os termos
           </label>
         </div>
+        {errors?.agree && (
+          <small className="text-xs text-red-500 mt-1">{errors?.agree}</small>
+        )}
       </div>
       <button
         type="submit"
