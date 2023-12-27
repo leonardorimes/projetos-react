@@ -62,7 +62,7 @@ const Game = () => {
         }
 
         setFlippedCards([]);
-      }, 600);
+      }, 1000);
     }
   };
 
